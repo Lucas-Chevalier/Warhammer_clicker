@@ -5,6 +5,7 @@ var auto = 0;
 var cout = 0;
 var cout = 0;
 var cout = 0;
+var jsonData;
 
 const myPromise = new Promise(function(resolve, reject) {
     setTimeout(function() { 
@@ -17,7 +18,22 @@ setInterval(points = points + auto, 500);
 setInterval(console.log(points), 500);
 
 
+function save() {
+    jsonData = JSON.stringify(points, null, 2);
+    var fichier = new Blob([points], {type: "application/json"});
+    //const url = URL.createObjectURL(blob);
 
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(fichier);
+    a.download = "data.json";
+    //URL.revokeObjectURL(url);
+    a.click();
+}
+
+// Exemple d'utilisation
+var typeContenu = "text/plain"; // Type de contenu du fichier (texte brut)
+
+//save(contenu, nomFichier, typeContenu);
 
 function point(){
     points = points * multiplicateur + addition
