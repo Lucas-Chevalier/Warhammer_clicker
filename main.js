@@ -58,7 +58,7 @@ async function load() {
     affichage()
     affichage_ac()
     affichage_cb()
-    affichage_db()
+    affichage_dc()
     
 
     
@@ -71,22 +71,23 @@ function affichage(){
 }
 
 function affichage_ac(){
-    cout_ac = 10 + 15*(3*auto)
+    cout_ac = 55 + 15*(3*auto)
 
     affichageElement = document.getElementById("ac");
+    console.log(cout_ac);
     affichageElement.innerHTML = "Auto Click +" + auto + "/s : " + cout_ac + " points";
 
 }
 
 function affichage_cb(){
-    cout_cb = 2 + 8*(2*addition)
+    cout_cb = 2 + 8*(2*addition);
     
     affichageElement = document.getElementById("cb");
     affichageElement.innerHTML = " Points par click +" + (addition-1) + " : " + cout_cb + " points";
 }
 
-function affichage_db(){
-    cout_dc = 7 + 20*(10*multiplicateur)
+function affichage_dc(){
+    cout_dc = 7 + 20*(10*multiplicateur);
 
     affichageElement = document.getElementById("dc");
     affichageElement.innerHTML = "Double Points x2 : " + cout_dc + " points";
@@ -106,8 +107,9 @@ function click_bonus(){
     if (points>=cout_cb){
         addition = addition + 1
         points = points - cout_cb
+        
         affichage()
-        affichage_ac()
+        affichage_cb()
     }
     else {
         console.log("vous n'avez pas assez de points, points requis = ", cout_cb)
@@ -120,6 +122,7 @@ function auto_click(){
 
         auto = auto + 1
         points = points - cout_ac
+        
         affichage()
         
         affichage_ac()
@@ -142,8 +145,9 @@ function double_click(){
         setTimeout(function() {
             bonus = 1;
         }, 30000);
+
         affichage()
-        affichage_ac();
+        affichage_dc();
 
     }
     else {
