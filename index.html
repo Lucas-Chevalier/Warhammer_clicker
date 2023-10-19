@@ -16,21 +16,22 @@
         <div class="overlay"></div>
     </header>
     <content>
+        <div class=""></div>
+
         <div class="navbar">
-            <button class="navbar_bouton" onclick="save()"> Sauvegarde</button>
-            <button class="navbar_bouton" onclick="save()"> Charger</button>
+            <button class="navbar_bouton" onclick="save()"> Sauvegarder</button>
+            <button class="navbar_bouton" onclick="load()"> Charger</button>
         </div>
+        
         <div class="clicker">
-            
+            <div class="score" id="score"> Score : 0</div>
             <img src="img/logo_new.png" alt="" onclick="point()">
         </div>
 
-        
-        
         <div class="magasin">
-            <button class="jeu_bouton" onclick="click_bonus()">cliquer</button>            
-            <button class="jeu_bouton" onclick="auto_click()">auto click</button>
-            <button class="jeu_bouton" onclick="double_click()">double click</button>
+            <button class="jeu_bouton" id="cb" onclick="click_bonus()">Points par click +0 : 18 points</button>            
+            <button class="jeu_bouton" id="ac" onclick="auto_click()">Auto click +0/s : 55 points</button>
+            <button class="jeu_bouton" id="dc" onclick="double_click()">Double click x2 pendant 30s : <br> 207 points</button>
         </div>
     </content>
 

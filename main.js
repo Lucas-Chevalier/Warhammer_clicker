@@ -2,25 +2,49 @@ var points = 0;
 var multiplicateur = 1;
 var addition = 1;
 var auto = 0;
-var cout = 0;
-var cout = 0;
-var cout = 0;
+var cout_cb = 0;
+var cout_ac = 0;
+var cout_dc = 0;
 var jsonData;
+var sauvegarde;
+var fileSelector = document.getElementById("load");
+var affichageElement = document.getElementById("score");
+var bonus = 1;
 
-const myPromise = new Promise(function(resolve, reject) {
+const boucle = new Promise(function(resolve, reject) {
     setTimeout(function() { 
-      resolve('foo');
-    }, 1000);
+    setInterval(boucleInfinie, 1000)
+    }, 1);
   });
 
 
-setInterval(points = points + auto, 500);
-setInterval(console.log(points), 500);
+
+function boucleInfinie() {
+
+    points = points + (auto*bonus)
+    affichage()
+}
+
+
+
+  fileSelector.addEventListener('change', (event) => {
+    console.log('tryd')
+    const fileList = event.target.files;
+    console.log(fileList);
+  });
+
 
 
 function save() {
-    jsonData = JSON.stringify(points, null, 2);
-    var fichier = new Blob([points], {type: "application/json"});
+    sauvegarde = {
+        "points":points,
+        "bonus":bonus,
+        "addition":addition,
+        "auto":auto
+        
+    };
+    jsonData = JSON.stringify(sauvegarde, null, 2);
+    var fichier = new Blob([jsonData], {type: "application/json"});
     //const url = URL.createObjectURL(blob);
 
     var a = document.createElement("a");
@@ -29,15 +53,39 @@ function save() {
     //URL.revokeObjectURL(url);
     a.click();
 }
+function load() {
+    const chargement = fetch("data.json",{
+    headers: {
+        'Accept': 'application/json'
+      }})
+      .then(res => res.json())
+    console.log(chargement)
+    let resultat = chargement.PromiseResults
+    console.log(resultat)
+    points = chargement.points
+    console.log(points)
+    bonus = chargement.bonus
+    console.log(bonus)
+    addition = chargement.addition
+    console.log(addition)
+    auto = chargement.auto
+    console.log(auto)
+    affichage()
 
-// Exemple d'utilisation
-var typeContenu = "text/plain"; // Type de contenu du fichier (texte brut)
+}
 
-//save(contenu, nomFichier, typeContenu);
+function affichage(){
+    affichageElement = document.getElementById("score");
+    affichageElement.innerHTML = "Score : " + points;
+}
+
 
 function point(){
-    points = points * multiplicateur + addition
-    console.log(points)
+    
+    points = points + (bonus * addition);
+    
+    affichage();
+    
 }
 
 function click_bonus(){
@@ -45,7 +93,13 @@ function click_bonus(){
     if (points>=cout_cb){
         addition = addition + 1
         points = points - cout_cb
-        console.log(points)
+        affichage()
+        
+        cout_cb = 2 + 8*(2*addition)
+
+        affichageElement = document.getElementById("cb");
+        affichageElement.innerHTML = " Points par click +" + (addition-1) + " : " + cout_cb + " points";
+
     }
     else {
         console.log("vous n'avez pas assez de points, points requis = ", cout_cb)
@@ -53,12 +107,17 @@ function click_bonus(){
 }
 
 function auto_click(){
-    cout_ac = 10 + 20*(2.5*multiplicateur)
-    if (points>=cout_dc){
+    cout_ac = 55 + 15*(3*auto)
+    if (points>=cout_ac){
 
-        multiplicateur = multiplicateur + 1
-        points = points - cout_dc
-        console.log(points)
+        auto = auto + 1
+        points = points - cout_ac
+        affichage()
+        
+        cout_ac = 10 + 15*(3*auto)
+
+        affichageElement = document.getElementById("ac");
+        affichageElement.innerHTML = "Auto Click +" + auto + "/s : " + cout_ac + " points";
     }
     else {
         console.log("vous n'avez pas assez de points, points requis = ", cout_ac)
@@ -66,26 +125,31 @@ function auto_click(){
 
 }
 
-  myPromise.then(function(value) {
-    console.log(value);
-  }).catch(function(error) {
-    // Appelé lorsque "reject" est appelé
-    console.log(error);
-  })
-
 function double_click(){
-    cout_dc = 7 + 10*(3*multiplicateur)
+    cout_dc = 7 + 20*(10*multiplicateur)
     if (points>=cout_dc){
 
         multiplicateur = multiplicateur + 1
         points = points - cout_dc
-        console.log(points)
+        affichage()
+        bonus = 2;
+        
+        cout_dc = 7 + 20*(10*multiplicateur)
+        
+        setTimeout(function() {
+            bonus = 1;
+            }, 30000);
+
+
+        affichageElement = document.getElementById("dc");
+        affichageElement.innerHTML = "Double Points x2 : " + cout_dc + " points";
     }
     else {
         console.log("vous n'avez pas assez de points, points requis = ", cout_dc)
     }
 
 }
+
 
 
 
