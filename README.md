@@ -14,3 +14,5 @@ Ce clicker dispose de fonctionnalités basique :
         et le dernier double les points gagnée pendant 30 secondes
 
 - un bouton de sauvegarde et de chargement qui permet de récupérer sa progression dans un fichier data.JSON.
+
+Afin que le système de sauvegarde soit fonctionnel, il faut mettre le fichier data.JSON dans la racine du dossier et que le site soit lancée avec un server local, comme Apache par exemple
