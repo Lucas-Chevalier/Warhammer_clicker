@@ -56,6 +56,23 @@ iframe {
   height: 20%;
 }
 
+.logos{
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  width: 50%;
+  height: 20%;
+  bottom: 80%;
+  right: 80%;
+}
+
+.logo {
+  height: 120%;
+  margin-left: 53%;
+}
+
+
+
 .jeu_bouton{
   margin-top: 30%;
   font-family: 'Quadrata II', cursive;

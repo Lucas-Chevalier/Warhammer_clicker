@@ -38,7 +38,7 @@ function boucleInfinie() {
 function save() {
     sauvegarde = {
         "points":points,
-        "bonus":bonus,
+        "multiplicateur":multiplicateur,
         "addition":addition,
         "auto":auto
         
@@ -53,24 +53,34 @@ function save() {
     //URL.revokeObjectURL(url);
     a.click();
 }
-function load() {
-    const chargement = fetch("data.json",{
+async function load() {
+    const chargement = await fetch("data.json",{
     headers: {
         'Accept': 'application/json'
       }})
       .then(res => res.json())
-    console.log(chargement)
-    let resultat = chargement.PromiseResults
-    console.log(resultat)
     points = chargement.points
-    console.log(points)
-    bonus = chargement.bonus
-    console.log(bonus)
+    multiplicateur = chargement.multiplicateur
     addition = chargement.addition
-    console.log(addition)
     auto = chargement.auto
-    console.log(auto)
     affichage()
+    cout_cb = 2 + 8*(2*addition)
+
+    cout_ac = 55 + 15*(3*auto)
+
+    cout_dc = 7 + 20*(10*multiplicateur)
+
+    affichageElement = document.getElementById("cb");
+    affichageElement.innerHTML = " Points par click +" + (addition-1) + " : " + cout_cb + " points";
+    
+    affichageElement = document.getElementById("ac");
+    affichageElement.innerHTML = "Auto Click +" + auto + "/s : " + cout_ac + " points";
+    
+    affichageElement = document.getElementById("dc");
+    affichageElement.innerHTML = "Double Points x2 : " + cout_dc + " points";
+    
+
+    
 
 }
 
@@ -96,7 +106,6 @@ function click_bonus(){
         affichage()
         
         cout_cb = 2 + 8*(2*addition)
-
         affichageElement = document.getElementById("cb");
         affichageElement.innerHTML = " Points par click +" + (addition-1) + " : " + cout_cb + " points";
 
